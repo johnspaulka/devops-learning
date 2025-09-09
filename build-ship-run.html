@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Build, Ship, Run - Docker Workflow</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Build, Ship, Run - The Core of Modern Application Delivery">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    :root {
+      --theme-color: #2496ED;
+      --build-color: #28a745;
+      --ship-color: #fd7e14;
+      --run-color: #6f42c1;
+      --text-color-base: #333;
+    }
+    
+    .app-name-link {
+      color: var(--theme-color) !important;
+      font-weight: bold;
+    }
+    
+    /* Workflow Hero Section */
+    .workflow-hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+    
+    .workflow-hero h1 {
+      color: white;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    
+    .workflow-icons {
+      font-size: 3em;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .workflow-step {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 50%;
+      backdrop-filter: blur(10px);
+    }
+    
+    .workflow-arrow {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: bold;
+    }
+    
+    .context-note {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      backdrop-filter: blur(5px);
+    }
+    
+    /* Build Section Styles */
+    .build-section {
+      background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+      border: 2px solid var(--build-color);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .concept-highlight {
+      background: white;
+      border-left: 5px solid var(--build-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .cross-platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .platform-feature {
+      background: white;
+      border: 2px solid var(--build-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .platform-feature h4 {
+      color: var(--build-color);
+      margin-bottom: 10px;
+    }
+    
+    .package-contents {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+    
+    .content-item {
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .content-icon {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+    
+    .content-item strong {
+      color: var(--build-color);
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .content-item p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    .key-takeaway {
+      background: var(--build-color);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    .key-takeaway h4 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    
+    /* Dockerfile Section Styles */
+    .dockerfile-section {
+      background: linear-gradient(135deg, #fff8f0 0%, #ffeaa7 100%);
+      border: 2px solid var(--ship-color);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .dockerfile-concept {
+      background: white;
+      border-left: 5px solid var(--ship-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .essential-step {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .essential-step h4 {
+      color: #856404;
+      margin-bottom: 15px;
+    }
+    
+    .code-example {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+    }
+    
+    .dockerfile-instructions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .instruction-card {
+      background: white;
+      border: 2px solid var(--ship-color);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    
+    .instruction-card h4 {
+      color: var(--ship-color);
+      margin-bottom: 10px;
+      font-family: 'Courier New', monospace;
+      background: #f8f9fa;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+    
+    .instruction-example {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    
+    /* Layers Section Styles */
+    .layers-section {
+      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+      border: 2px solid var(--run-color);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .layer-process {
+      background: white;
+      border-left: 5px solid var(--run-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .build-steps {
+      padding-left: 20px;
+    }
+    
+    .build-steps li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    
+    .caching-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .cache-feature {
+      background: white;
+      border: 2px solid var(--run-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .cache-feature h4 {
+      color: var(--run-color);
+      margin-bottom: 10px;
+    }
+    
+    .portability-info {
+      background: white;
+      border-left: 5px solid var(--run-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .layer-stack {
+      margin: 30px 0;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .layer {
+      padding: 15px;
+      margin: 5px 0;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .layer-cmd { background: #e3f2fd; border-left: 4px solid #2196f3; }
+    .layer-run { background: #f3e5f5; border-left: 4px solid #9c27b0; }
+    .layer-copy { background: #fff3e0; border-left: 4px solid #ff9800; }
+    .layer-workdir { background: #e8f5e8; border-left: 4px solid #4caf50; }
+    .layer-from { background: #ffebee; border-left: 4px solid #f44336; }
+    
+    .speaker-notes {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    .speaker-notes h4 {
+      color: #856404;
+      margin-bottom: 15px;
+    }
+    
+    .speaker-notes ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .speaker-notes li {
+      margin-bottom: 8px;
+      color: #856404;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .workflow-icons {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .workflow-arrow {
+        transform: rotate(90deg);
+      }
+      
+      .cross-platform-grid,
+      .package-contents,
+      .dockerfile-instructions,
+      .caching-benefits {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: '🚀 Build, Ship, Run',
+      repo: '',
+      loadSidebar: '_build-ship-run-sidebar.md',
+      subMaxLevel: 3,
+      auto2top: true,
+      search: 'auto',
+      themeColor: '#2496ED',
+      homepage: 'build-ship-run.md',
+      coverpage: false,
+      onlyCover: false,
+      executeScript: true,
+      mergeNavbar: true,
+      maxLevel: 4,
+      alias: {
+        '/.*/_sidebar.md': '/_build-ship-run-sidebar.md'
+      }
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- Search plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- Copy code plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+</body>
+</html>
