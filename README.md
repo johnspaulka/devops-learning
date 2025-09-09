@@ -179,7 +179,7 @@ Just like shipping containers revolutionized global trade by providing a standar
         <em>Template/Blueprint</em><br>
         Defines structure and behavior
       </div>
-      <div class="arrow">≈</div>
+      <div class="analogy-arrow">≈</div>
       <div class="analogy-item">
         <strong>Docker Image</strong> 🏗️<br>
         <em>Template/Blueprint</em><br>
@@ -187,13 +187,13 @@ Just like shipping containers revolutionized global trade by providing a standar
       </div>
     </div>
 
-    <div class="analogy-comparison">
+  <div class="analogy-comparison">
       <div class="analogy-item">
         <strong>Object Instance</strong> 🎯<br>
         <em>Running Instance</em><br>
         Created from class, has state
       </div>
-      <div class="arrow">≈</div>
+      <div class="analogy-arrow">≈</div>
       <div class="analogy-item">
         <strong>Docker Container</strong> 🚀<br>
         <em>Running Instance</em><br>

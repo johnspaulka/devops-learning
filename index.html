@@ -269,45 +269,88 @@
 
     /* Programming Analogy Styles */
     .programming-analogy {
-      background: #f0f8ff;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
       border: 2px solid var(--theme-color);
-      border-radius: 10px;
-      padding: 25px;
+      border-radius: 15px;
+      padding: 30px;
       margin: 30px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .programming-analogy h4 {
       text-align: center;
       color: var(--theme-color);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-size: 1.4em;
+    }
+
+    .analogy-section {
+      width: 100%;
     }
 
     .analogy-comparison {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      margin: 20px 0;
+      margin: 25px 0;
       flex-wrap: wrap;
+      gap: 20px;
     }
 
     .analogy-item {
       background: white;
       border: 2px solid #e9ecef;
-      border-radius: 8px;
-      padding: 15px;
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
-      min-width: 180px;
-      margin: 10px;
+      min-width: 200px;
+      max-width: 250px;
+      flex: 1;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .analogy-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
     .analogy-item strong {
       color: var(--theme-color);
-      font-size: 1.1em;
+      font-size: 1.2em;
+      display: block;
+      margin-bottom: 8px;
     }
 
     .analogy-item em {
       color: #666;
-      font-size: 0.9em;
+      font-size: 0.95em;
+      display: block;
+      margin: 8px 0;
+      font-style: italic;
+    }
+
+    .analogy-item br + em {
+      margin-top: 5px;
+    }
+
+    .arrow {
+      font-size: 2em;
+      color: var(--theme-color);
+      margin: 0 15px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .analogy-arrow {
+      font-size: 2.5em;
+      color: var(--theme-color);
+      margin: 0 15px;
+      font-weight: bold;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Image-Container Flow Styles */
@@ -386,14 +429,29 @@
         margin: 10px 0;
       }
 
+      .analogy-arrow {
+        margin: 15px 0;
+        font-size: 2em;
+      }
+
       .analogy-comparison {
         flex-direction: column;
+        gap: 15px;
       }
 
       .analogy-item {
         min-width: auto;
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .programming-analogy {
+        padding: 20px;
+      }
+
+      .programming-analogy h4 {
+        font-size: 1.2em;
       }
 
       .image-container-flow {
@@ -420,16 +478,295 @@
         max-width: 300px;
       }
     }
+
+    /* Build, Ship, Run Workflow Styles */
+    .workflow-hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    .workflow-hero h1 {
+      color: white;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .workflow-icons {
+      font-size: 3em;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .workflow-step {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 50%;
+      backdrop-filter: blur(10px);
+    }
+
+    .workflow-arrow {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: bold;
+    }
+
+    .context-note {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Build Section Styles */
+    .build-section {
+      background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+      border: 2px solid #28a745;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .concept-highlight {
+      background: white;
+      border-left: 5px solid #28a745;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .cross-platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .platform-feature {
+      background: white;
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .platform-feature h4 {
+      color: #28a745;
+      margin-bottom: 10px;
+    }
+
+    .package-contents {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .content-item {
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .content-icon {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+
+    .content-item strong {
+      color: #28a745;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .content-item p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .key-takeaway {
+      background: #28a745;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .key-takeaway h4 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    /* Dockerfile Styles */
+    .dockerfile-section {
+      background: linear-gradient(135deg, #fff8f0 0%, #ffeaa7 100%);
+      border: 2px solid #fd7e14;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .dockerfile-concept {
+      background: white;
+      border-left: 5px solid #fd7e14;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .essential-step {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .essential-step h4 {
+      color: #856404;
+      margin-bottom: 15px;
+    }
+
+    .code-example {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+    }
+
+    .dockerfile-instructions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .instruction-card {
+      background: white;
+      border: 2px solid #fd7e14;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .instruction-card h4 {
+      color: #fd7e14;
+      margin-bottom: 10px;
+      font-family: 'Courier New', monospace;
+      background: #f8f9fa;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .instruction-example {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    /* Layers Styles */
+    .layers-section {
+      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+      border: 2px solid #6f42c1;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .layer-process {
+      background: white;
+      border-left: 5px solid #6f42c1;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .build-steps {
+      padding-left: 20px;
+    }
+
+    .build-steps li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .caching-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .cache-feature {
+      background: white;
+      border: 2px solid #6f42c1;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .cache-feature h4 {
+      color: #6f42c1;
+      margin-bottom: 10px;
+    }
+
+    .portability-info {
+      background: white;
+      border-left: 5px solid #6f42c1;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .layer-stack {
+      margin: 30px 0;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .layer {
+      padding: 15px;
+      margin: 5px 0;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .layer-cmd { background: #e3f2fd; border-left: 4px solid #2196f3; }
+    .layer-run { background: #f3e5f5; border-left: 4px solid #9c27b0; }
+    .layer-copy { background: #fff3e0; border-left: 4px solid #ff9800; }
+    .layer-workdir { background: #e8f5e8; border-left: 4px solid #4caf50; }
+    .layer-from { background: #ffebee; border-left: 4px solid #f44336; }
   </style>
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '🐳 Docker Introduction',
+      name: '🐳 Complete Docker Guide',
       repo: '',
       loadSidebar: true,
-      subMaxLevel: 2,
+      subMaxLevel: 3,
       auto2top: true,
       search: 'auto',
       themeColor: '#2496ED',
