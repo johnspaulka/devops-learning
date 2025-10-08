@@ -8,6 +8,12 @@
 ---
 ## [🏃 Part 3: Running Containers ](/running-containers)
 
-## [🚀 Part 4: Build, Ship, Run](/build-ship-run)
+## [🔍 Part 4: Container Forensics ](/container-forensics)
+
+## [💻 Part 5: Getting Into Containers ](/getting-into-containers)
+
+## [🚀 Part 6: Build, Ship, Run](/build-ship-run)
+
+
 
 ---
