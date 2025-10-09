@@ -28,10 +28,10 @@ Before we go inside, remember these external tools:
 
 ```bash
 # See running containers
-docker ps
+docker container ls
 
 # View container logs
-docker logs <container_name>
+docker containerlogs <container_name>
 
 # Inspect configuration
 docker inspect <container_name>

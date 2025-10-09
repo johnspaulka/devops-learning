@@ -4,6 +4,32 @@
 
 ---
 
+## 🔄 **Prerequisites & Quick Review**
+
+<div class="prerequisites-section">
+
+### ✅ **What You Should Know**
+- Basic container operations: `docker run <image>`
+- Container lifecycle management: start, stop, remove
+
+### 🔍 **External Investigation Tools (Quick Recap)**
+Before we go inside, remember these external tools:
+
+```bash
+# See running containers
+docker container ls
+
+# View container logs
+docker containerlogs <container_name>
+
+# Inspect configuration
+docker inspect <container_name>
+```
+
+</div>
+
+---
+
 ## 🎯 **What You'll Learn**
 
 By the end of this guide, you'll confidently:
@@ -99,7 +125,7 @@ docker container top mysql-db
 **Expected output:**
 ```
 PID    USER   TIME     COMMAND
-2345   mysql  0:02     mysqld --default-authentication-plugin=mysql_native_password
+2345   mysql  0:02     mysqld
 ```
 
 **🔍 What you're seeing:**
