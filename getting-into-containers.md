@@ -31,7 +31,7 @@ Before we go inside, remember these external tools:
 docker container ls
 
 # View container logs
-docker containerlogs <container_name>
+docker container logs <container_name>
 
 # Inspect configuration
 docker inspect <container_name>
@@ -180,8 +180,6 @@ whoami
 # Check network configuration
 ip addr show
 
-# See running processes
-ps aux
 
 # Check system information
 cat /etc/os-release
@@ -234,7 +232,7 @@ docker run -d --name web-server -p 8080:80 nginx:latest
 #### ✅ **Step 2: Verify It's Running**
 ```bash
 # Check container status
-docker ps
+docker container ls
 
 # Test the web server
 curl http://localhost:8080
@@ -258,8 +256,6 @@ root@a1b2c3d4e5f6:/#
 
 #### 🕵️ **Step 4: Investigate the Running Service**
 ```bash
-# Check Nginx processes
-ps aux | grep nginx
 
 # Examine Nginx configuration
 cat /etc/nginx/nginx.conf
@@ -267,8 +263,6 @@ cat /etc/nginx/nginx.conf
 # Check web content
 ls -la /usr/share/nginx/html/
 
-# View access logs
-tail -f /var/log/nginx/access.log
 ```
 
 ### ✅ **Safe Exit Behavior**
@@ -432,31 +426,7 @@ man ls
 
 <div class="workshop-section">
 
-### 🏋️ **Exercise 1: Compare Both Methods**
-
-```bash
-# Method 1: Start with interactive shell
-docker run -it alpine:latest /bin/sh
-
-# Inside the container:
-echo "I'm in a new container" > /tmp/test.txt
-cat /tmp/test.txt
-exit  # This stops the container
-
-# Method 2: Start detached, then exec
-docker run -d --name persistent-alpine alpine:latest sleep 3600
-docker exec -it persistent-alpine /bin/sh
-
-# Inside the container:
-echo "I'm in a running container" > /tmp/test.txt
-cat /tmp/test.txt
-exit  # This keeps the container running
-
-# Verify the container is still running
-docker ps
-```
-
-### 🏋️ **Exercise 2: Tool Installation Practice**
+### 🏋️ **Exercise 1: Tool Installation Practice**
 
 ```bash
 # Start a minimal container
@@ -481,7 +451,7 @@ nano /tmp/hello.txt  # Edit the file
 exit
 ```
 
-### 🏋️ **Exercise 3: Alpine vs Ubuntu Package Management**
+### 🏋️ **Exercise 2: Alpine vs Ubuntu Package Management**
 
 ```bash
 # Compare package installation between Alpine and Ubuntu
@@ -507,7 +477,7 @@ apt search nano               # Search for packages
 exit
 ```
 
-### 🏋️ **Exercise 4: Real-World Debugging**
+### 🏋️ **Exercise 3: Real-World Debugging**
 
 ```bash
 # Start a web server
@@ -522,11 +492,10 @@ docker exec -it debug-nginx /bin/bash
 # Explore the web server
 ps aux                                    # See running processes
 ls -la /usr/share/nginx/html/            # Check web content
-cat /var/log/nginx/access.log            # View access logs
 cat /etc/nginx/nginx.conf                # Check configuration
 
 # Make a change
-echo "<h1>Modified from inside!</h1>" > /usr/share/nginx/html/index.html
+echo "<h1>Modified from inside</h1>" > /usr/share/nginx/html/index.html
 
 exit
 
@@ -551,41 +520,6 @@ curl http://localhost:8080
 | **Use Alpine shell** | `docker run -it alpine /bin/sh` | • Use `/bin/sh` instead of `/bin/bash`<br>• Very minimal environment |
 | **Install tools** | `apt update && apt install -y <tool>` | • Tools are temporary<br>• Only in current container<br>• Lost when container stops |
 
-
-
-## 🆘 **Troubleshooting Guide**
-
-<div class="troubleshooting-section">
-
-**❌ "bash: command not found"?**
-```bash
-# Try /bin/sh instead
-docker run -it alpine:latest /bin/sh
-```
-
-**❌ Can't type or see cursor properly?**
-```bash
-# Make sure you're using both -i and -t flags
-docker run -it ubuntu:latest /bin/bash
-```
-
-**❌ Container exits immediately?**
-```bash
-# Check if the image has a shell
-docker run -it ubuntu:latest ls /bin/
-```
-
-**❌ "No such container" error?**
-```bash
-# Check container name and status
-docker ps -a
-```
-
-**❌ Tools not working after installation?**
-```bash
-# Make sure you updated package lists first
-apt update
-apt install -y <package-name>
-```
-
 </div>
+
+---

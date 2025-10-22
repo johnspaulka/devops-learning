@@ -20,10 +20,10 @@ Before we go inside, remember these external tools:
 docker container ls
 
 # View container logs
-docker containerlogs <container_name>
+docker container logs <container_name>
 
 # Inspect configuration
-docker inspect <container_name>
+docker container inspect <container_name>
 ```
 
 </div>

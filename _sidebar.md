@@ -12,6 +12,8 @@
 
 ## [💻 Part 5: Getting Into Containers ](/getting-into-containers)
 
+## [📦 Part 6: Docker Images](/docker-images)
+
 ## [🚀 Part 6: Build, Ship, Run](/build-ship-run)
 
 
