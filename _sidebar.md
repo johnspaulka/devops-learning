@@ -14,6 +14,8 @@
 
 ## [📦 Part 6: Docker Images](/docker-images)
 
+## [Part 7: Image Cache](/image-cache)
+
 ## [🚀 Part 6: Build, Ship, Run](/build-ship-run)
 
 
