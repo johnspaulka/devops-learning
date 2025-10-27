@@ -16,7 +16,84 @@ By the end of this guide, you'll confidently:
 
 ---
 
-## 📄 **Page 1: Introduction to the Dockerfile**
+## 🐳 **Page 1: Understanding Docker Images and Tags**
+
+<div class="images-section">
+
+### 🖼️ **What is a Docker Image?**
+
+A Docker image is a **read-only template** that contains everything needed to run an application:
+
+- **Operating System:** Base OS (Linux distributions like Ubuntu, Alpine, Debian)
+- **Runtime Environment:** Programming languages (Python, Node.js, Java)
+- **Application Code:** Your application files and dependencies
+- **Configuration:** Environment variables, startup commands, and settings
+- **Metadata:** Information about the image (author, version, ports)
+
+Think of a Docker image as a **snapshot** of a complete application environment that can be replicated anywhere Docker runs.
+
+### 🏷️ **Docker Image Tags: Versioning and Identification**
+
+Docker image tags are **labels** that help identify and version your images. They follow this format:
+
+```bash
+# Basic format
+[REGISTRY/][NAMESPACE/]REPOSITORY:TAG
+
+# Examples
+nginx:latest                    # Official Nginx image, latest version
+nginx:1.28.0-alpine             # Official nginx image, version 1.28.0-alpine
+
+# Breaking down the full format with examples:
+nginx, equivalent to docker.io/library/nginx:latest
+# This pulls an image from the docker.io registry, the library namespace (contains official images), 
+# the nginx image repository, and the latest tag
+
+docker/welcome-to-docker, equivalent to docker.io/docker/welcome-to-docker:latest
+# This pulls an image from the docker.io registry, the docker namespace, 
+# the welcome-to-docker image repository, and the latest tag
+
+ghcr.io/dockersamples/example-voting-app-vote:pr-311
+# This pulls an image from the GitHub Container Registry, the dockersamples namespace, 
+# the example-voting-app-vote image repository, and the pr-311 tag
+```
+
+### 📋 **Understanding Tag Components**
+
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| **Registry** | Where the image is stored | `docker.io`, `my-registry.com` |
+| **Repository** | The image name/namespace | `nginx`, `my-app`, `company/webapp` |
+| **Tag** | Version or variant identifier | `latest`, `v1.0`, `alpine`, `dev` |
+
+### 🎯 **Common Tag Patterns**
+
+```bash
+# Version numbers
+nginx:1.21.6
+my-app:v2.1.0
+
+# Architecture variants
+node:18-alpine    # Alpine Linux variant (smaller)
+python:3.11-slim  # Slim variant (minimal packages)
+
+# Special tags
+nginx:latest      # Most recent stable version
+nginx:stable      # Stable release
+```
+
+### 🔍 **Default Tags and Behavior**
+
+```bash
+# When you don't specify a tag, Docker assumes 'latest'
+docker pull nginx          # Same as: docker pull nginx:latest
+docker run ubuntu          # Same as: docker run ubuntu:latest
+
+# But 'latest' might not always be what you expect!
+# It's just the default tag name, not necessarily the newest version
+``` 
+
+## 📄 **Page 2: Introduction to the Dockerfile**
 
 <div class="intro-section">
 
@@ -34,7 +111,7 @@ Dockerfile
 
 # Custom filename (requires -f flag)
 Dockerfile.dev
-my-app.dockerfile
+my-app.Dockerfile # Preferred custom name as per convention
 ```
 
 **💡 Best Practice:** Use the default name `Dockerfile` (with capital "D") unless you have multiple Dockerfiles in the same directory.
@@ -73,34 +150,9 @@ FROM python:3.11-slim
 
 ---
 
-## 🏗️ **Page 2: Structure, Layers, and the RUN Command**
+## 🏗️ **Page 3: Structure, Layers, and the RUN Command**
 
 <div class="structure-section">
-
-### 📋 **Dockerfile Structure and Order**
-
-```dockerfile
-# 1. Base image (always first)
-FROM debian:jessie
-
-# 2. Metadata and configuration
-LABEL maintainer="your-email@example.com"
-
-# 3. Install dependencies
-RUN apt-get update && apt-get install -y nginx
-
-# 4. Copy application files
-COPY . /app
-
-# 5. Set working directory
-WORKDIR /app
-
-# 6. Expose ports
-EXPOSE 80
-
-# 7. Define startup command
-CMD ["nginx", "-g", "daemon off;"]
-```
 
 **⚠️ Order Matters:** Docker processes the Dockerfile line-by-line, building up the image sequentially.
 
@@ -109,11 +161,25 @@ CMD ["nginx", "-g", "daemon off;"]
 Each instruction in your Dockerfile creates a separate **read-only layer**:
 
 ```dockerfile
-FROM debian:jessie          # Layer 1: Base OS
-RUN apt-get update          # Layer 2: Package index update
-RUN apt-get install nginx   # Layer 3: Nginx installation
-COPY app.html /var/www/     # Layer 4: Application files
-EXPOSE 80                   # Layer 5: Port configuration
+# Layer 1: Base image (always first)
+FROM debian:bookworm-slim   
+
+LABEL maintainer="johnhonai@harihar.nagar"
+
+# Layer 2: Package index update
+RUN apt-get update          
+
+# Layer 3: Nginx installation
+RUN apt-get install -y nginx  
+
+# Layer 4: Application files
+COPY index.html /var/www/html/
+
+# Layer 5: Port configuration
+EXPOSE 80
+
+# Layer 6: Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 **🎯 Benefits of Layers:**
@@ -136,29 +202,11 @@ RUN wget https://example.com/config.conf -O /etc/nginx/nginx.conf
 
 **🔍 Context:** Because our base image is Debian, `RUN` has access to all Debian binaries like `apt-get`, `wget`, `curl`, etc.
 
-### 🌐 **Real Example: Installing Nginx**
-
-```dockerfile
-FROM debian:jessie
-
-# Add official Nginx repository key
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
-
-# Add Nginx repository
-RUN echo "deb http://nginx.org/packages/debian/ jessie nginx" > /etc/apt/sources.list.d/nginx.list
-
-# Update package index and install latest Nginx
-RUN apt-get update && apt-get install -y nginx
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
-```
-
 </div>
 
 ---
 
-## ⚡ **Page 3: Best Practices and Essential Instructions**
+## ⚡ **Page 4: Best Practices and Essential Instructions**
 
 <div class="best-practices-section">
 
@@ -185,35 +233,6 @@ RUN apt-get update && \
 - Fewer layers = smaller image size
 - Faster builds due to better caching
 - Self-contained cleanup in the same layer
-
-### 🧹 **Self-Correction and Cleanup Pattern**
-
-Always clean up in the same `RUN` instruction where you install packages:
-
-```dockerfile
-RUN apt-get update && \
-    apt-get install -y \
-        nginx \
-        curl \
-        wget && \
-    # Configure application
-    echo "server_name example.com;" > /etc/nginx/conf.d/server.conf && \
-    # Clean up package cache
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-```
-
-### 📊 **Log Forwarding Best Practice**
-
-Point application logs to STDOUT and STDERR so Docker can manage them:
-
-```dockerfile
-# Forward Nginx logs to Docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log
-```
-
-**🎯 Why:** This allows Docker to capture and manage container logs through `docker container logs`.
 
 ### 🚪 **The EXPOSE Command: Documentation, Not Action**
 
@@ -245,31 +264,7 @@ docker container run -p 443:443 my-nginx-image
 docker container run -p 8080:80 -p 8443:443 my-nginx-image
 ```
 
-### 📝 **Complete Example: Nginx Web Server**
-
-```dockerfile
-FROM debian:jessie
-
-# Install Nginx with cleanup in single layer
-RUN apt-get update && \
-    apt-get install -y nginx && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Forward logs to Docker
-RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log
-
-# Copy custom configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/www/html/
-
-# Document the port
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
-```
+### 📝 **Images -> Containers**
 
 **🚀 Build and run:**
 ```bash
