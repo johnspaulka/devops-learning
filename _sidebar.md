@@ -16,6 +16,8 @@
 
 ## [Part 7: Image Cache](/image-cache)
 
+## [Part 8: First Image Build](/first-image-build)
+
 ## [🚀 Part 6: Build, Ship, Run](/build-ship-run)
 
 
