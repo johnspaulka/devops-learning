@@ -137,6 +137,9 @@ FROM debian:jessie
 # Using a minimal distribution (recommended)
 FROM alpine:3.18
 
+# used to create minimal images containing only what you want
+FROM scratch
+
 # Using a language-specific base
 FROM node:18-alpine
 FROM python:3.11-slim
@@ -292,6 +295,7 @@ curl http://localhost:8080
 | `WORKDIR` | Set working directory | `WORKDIR /usr/src/app` |
 | `EXPOSE` | Document ports (metadata only) | `EXPOSE 80 443` |
 | `CMD` | Default command when container starts | `CMD ["nginx", "-g", "daemon off;"]` |
+| `ENTRYPOINT` | Sets the primary executable or script that runs every time the container is launched | `ENTRYPOINT ["nginx", "-g", "daemon off;"]` |
 
 **🎯 Remember:** 
 - Order matters in Dockerfiles
