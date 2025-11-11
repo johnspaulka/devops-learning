@@ -2,6 +2,8 @@
 
 ---
 
+## [🚀 Prequel: Build, Ship, Run](/build-ship-run)
+
 ## [📚 Part 1: Docker Introduction](/docker-intro)
 
 ## [🏗️ Part 2: Core Concepts](/core-concepts)
@@ -16,9 +18,10 @@
 
 ## [Part 7: Image Cache](/image-cache)
 
+
 ## [Part 8: First Image Build](/first-image-build)
 
-## [🚀 Part 6: Build, Ship, Run](/build-ship-run)
+## [💾 Part 9: Docker Volumes](/docker-volumes)
 
 
 
