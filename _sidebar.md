@@ -23,8 +23,12 @@
 
 ## [💾 Part 9: Docker Volumes](/docker-volumes)
 
-## [🔗 Part 10: Docker Networks](/docker-networks)
+## [🌐 Part 10: Networking Fundamentals](/networking-fundamentals)
 
+## [🔗 Part 11: Docker Networks](/docker-networks)
 
+## [⚡ Part 12: Network Commands](/docker-network-commands)
+
+## [🔍 Part 13: Docker DNS](/docker-dns)
 
 ---
