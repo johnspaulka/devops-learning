@@ -23,6 +23,8 @@
 
 ## [💾 Part 9: Docker Volumes](/docker-volumes)
 
+## [🔗 Part 10: Docker Networks](/docker-networks)
+
 
 
 ---
