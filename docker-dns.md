@@ -2,18 +2,6 @@
 
 > **Session Goal:** Understand why DNS/naming is crucial in a dynamic container environment and master container name resolution.
 
----
-
-## 🎯 Session Objectives
-
-By the end of this session, freshers will be able to:
-
-1. Understand why **DNS/naming** is crucial in a dynamic container environment.
-2. Differentiate how **Default Bridge** and **Custom Networks** handle DNS resolution.
-3. Use the `docker network` and `docker container` commands to explore networking features.
-4. Implement proper container communication using names instead of IP addresses.
-
----
 
 ## 1. 💡 The Core Problem: Why Can't We Trust IP Addresses?
 

@@ -33,7 +33,7 @@ The `-p` flag in `docker run` is how you expose a container's internal port to y
 #### Step 1: Run Nginx (without exposing the port)
 
 ```bash
-docker run -d --name webhost-a nginx
+docker run -d --name webhost-a nginx:alpine
 ```
 
 **🔍 Observation:** You can't access it via your browser at `http://localhost`.
@@ -41,7 +41,7 @@ docker run -d --name webhost-a nginx
 #### Step 2: Run Nginx (with port exposure)
 
 ```bash
-docker run -d --name webhost-b -p 8080:80 nginx
+docker run -d --name webhost-b -p 8080:80 nginx:alpine
 ```
 
 **🔍 Observation:** You can now access it via your browser at `http://localhost:8080`.
@@ -115,7 +115,7 @@ docker inspect -f '{{.NetworkSettings.IPAddress}}' webhost-a
 
 ```bash
 # Run another container
-docker run -d --name webhost-c nginx
+docker run -d --name webhost-c nginx:alpine
 
 # Get its IP
 docker inspect -f '{{.NetworkSettings.IPAddress}}' webhost-c
@@ -168,13 +168,13 @@ docker run -d --name my-web --network my-app-network -p 8081:80 httpd
 
 #### Step 4: Verify Communication (Service Discovery)
 
-The web container can "ping" the database container using its **container name** (`my-db`).
+The web container can test connectivity to the database container using its **container name** (`my-db`).
 
 ```bash
-docker exec -it my-web ping -c 3 my-db
+docker exec -it my-web curl -I --connect-timeout 5 my-db:3306
 ```
 
-**🔍 Expected Observation:** The ping is **successful**, proving they can communicate by name!
+**🔍 Expected Observation:** The connection test is **successful**, proving they can communicate by name!
 
 #### Step 5: Test DNS Resolution
 
